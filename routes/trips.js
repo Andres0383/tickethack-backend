@@ -8,9 +8,9 @@ const moment = require('moment')
 
 
 router.post('/', (req, res) => {
- const theDate = new Date(moment(req.body.date).format('DD/MM/YYYY'))
+ const theDate = new Date(req.body.date)
 
- const nextDate = new Date(moment(req.body.date).format('DD/MM/YYYY'))
+ const nextDate = new Date(req.body.date)
  
  nextDate.setDate(nextDate.getDate() +1 )
 
