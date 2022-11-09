@@ -10,12 +10,27 @@ const moment = require('moment')
 
 
 
-router.post('/', (req, res) => {
-	Cart.find({departure: req.body.departure, arrival: req.body.arrival}).then(data => {
+/*/router.post('/', (req, res) => {
+	Cart.find({departure: req.body.departure, arrival: req.body.arrival, date: req.body.date}).then(data => {
 		res.json({ cart: data });
 	});
-});
+});/*/
 
+
+
+router.delete("/", (req, res) => {
+	const deleteTrip = ({departure: req.body.departure, arrival: req.body.arrival, date: req.body.date})
+		Cart.delete({deleteTrip
+		}).then(deletedTrip => {
+	  		if (deletedTrip.deletedCount > 0) {
+		Cart.find().then(data => {
+		  res.json({ result: true, cart: data });
+		});
+	  } else {
+		res.json({ result: false, error: "Trip not found" });
+	  }
+	});
+  });
 
 
 
