@@ -8,12 +8,18 @@ const moment = require('moment')
 
 
 router.post('/', (req, res) => {
-    Trip.find({departure: req.body.departure, arrival: req.body.arrival, date: moment(req.body.date).format('DD/MM/YYYY')})
+ const theDate = new Date(moment(req.body.date).format('DD/MM/YYYY'))
+
+ const nextDate = new Date(moment(req.body.date).format('DD/MM/YYYY'))
+ 
+ nextDate.setDate(nextDate.getDate() +1 )
+
+    Trip.find({departure: req.body.departure, arrival: req.body.arrival, date: {"$gte": theDate, "$lt": nextDate }})
     .then(data => {
         if(data.length > 0) {
             res.json({ result: true, trips: data })
         } else {
-            res.json({result: false, error: 'No trip found'})   
+            res.json({result: false, error: 'No trip found'})
         }
     })
 })
