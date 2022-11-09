@@ -8,7 +8,7 @@ const moment = require('moment')
 
 
 router.post('/', (req, res) => {
-    Trip.find({departure: req.body.departure, arrival: req.body.arrival, date: req.body.date.moment().format(DD-MM-YYYY)})
+    Trip.find({departure: req.body.departure, arrival: req.body.arrival, date: moment(req.body.date).format('DD/MM/YYYY')})
     .then(data => {
         if(data.length > 0) {
             res.json({ result: true, trips: data })
