@@ -14,7 +14,7 @@ router.post('/', (req, res) => {
  
  nextDate.setDate(nextDate.getDate() +1 )
 
-    Trip.find({departure: req.body.departure, arrival: req.body.arrival, date: {"$gte": theDate, "$lt": nextDate }})
+    Trip.find({departure: { $regex: new RegExp(req.body.departure, 'i') }, arrival: { $regex: new RegExp(req.body.arrival, 'i') }, date: {"$gte": theDate, "$lt": nextDate }})
     .then(data => {
         if(data.length > 0) {
             res.json({ result: true, trips: data })
